@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cozma Store – الأمن السيبراني</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #111119;
+      --accent: #ff003c;
+      --accent-soft: rgba(255, 0, 60, 0.14);
+      --text: #f5f5f5;
+      --muted: #a7a7b3;
+      --radius: 18px;
+    }
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #161629 0%, #06060a 60%, #040406 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      backdrop-filter: blur(10px);
+      background: rgba(5, 5, 7, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .logo-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: radial-gradient(circle, rgba(255,0,60,1) 0%, rgba(255,0,60,0.05) 80%);
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .hero {
+      max-width: 1100px;
+      margin: 28px auto 10px;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+    }
+    .hero-text h1 {
+      font-size: clamp(28px, 4vw, 36px);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .hero-text p {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff003c 0%, #ff4585 100%);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 600;
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+    .hero-panel {
+      background: rgba(11, 11, 18, 0.45);
+      border: 1px solid rgba(255, 0, 60, 0.2);
+      border-radius: var(--radius);
+      padding: 18px 20px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .hero-panel h3 {
+      margin: 0;
+      font-size: 15px;
+    }
+    .qr-box {
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .qr-img {
+      width: 90px;
+      height: 90px;
+      background: repeating-linear-gradient(45deg, #0a0a0f 0 10px, #1f1f2b 10px 20px);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      text-align: center;
+      color: #aaa;
+    }
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .plans {
+      max-width: 1100px;
+      margin: 16px auto 24px;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .plan-card {
+      background: rgba(10, 10, 13, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.01);
+      border-radius: 14px;
+      padding: 16px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      position: relative;
+    }
+    .plan-card.highlight {
+      border: 1px solid rgba(255, 0, 60, 0.4);
+      background: radial-gradient(circle at top, rgba(255, 0, 60, 0.08) 0%, rgba(0,0,0,0) 50%);
+      box-shadow: 0 12px 25px rgba(255, 0, 60, 0.12);
+    }
+    .plan-title {
+      font-weight: 600;
+    }
+    .price {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    ul.features {
+      margin: 0;
+      padding: 0 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .btn-telegram {
+      background: rgba(0, 136, 204, 0.12);
+      color: #fff;
+      border: 1px solid rgba(0, 136, 204, 0.4);
+      border-radius: 10px;
+      padding: 9px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      width: fit-content;
+    }
+    .badge-top {
+      position: absolute;
+      top: -9px;
+      left: 14px;
+      background: #ff003c;
+      color: #fff;
+      font-size: 11px;
+      padding: 3px 9px 4px;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    footer {
+      text-align: center;
+      padding: 20px 16px 28px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .cta-share {
+      font-size: 12px;
+      color: #fff;
+      margin-top: 8px;
+    }
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero-panel {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">
+        <div class="logo-badge">C</div>
+        <div>
+          Cozma Store
+          <div style="font-size:11px;color:var(--muted);">Cybersecurity Digital Products</div>
+        </div>
+      </div>
+      <a href="https://t.me/YOUR_TELEGRAM_USERNAME" class="btn-telegram">طلب عبر تيليجرام</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <h1>باكجات الأمن السيبراني – من المبتدئ للمحترف 🔐</h1>
+        <p>
+          هالواجهة بس لعرض المنتجات. الطلب والدفع رح يكونوا عالتلغرام عن طريق
+          <b>Cozma Method</b> أو USDT. اختار الباكج واضغط “اطلب على تيليجرام”.
+        </p>
+        <button class="btn-primary" onclick="goTelegram()">اطلب الآن على تيليجرام</button>
+      </div>
+      <div class="hero-panel">
+        <h3>الدفع عبر USDT (Cozma Method)</h3>
+        <p class="small">حوّل المبلغ على المحفظة، بعدها بيوصلك رابط التحميل أو بتنضاف على القناة الخاصة.</p>
+        <div class="qr-box">
+          <div class="qr-img">
+            QR<br/>هنا
+          </div>
+          <div>
+            <div style="font-size:13px;">محفظة USDT (TRC20)</div>
+            <div style="font-size:11px;word-break:break-all;">
+              TXR1y0uRPlaCeY0urWalLetAddreSSHere
+            </div>
+            <div class="small">بعد التحويل ابعت سكرين للتأكيد على التلغرام</div>
+          </div>
+        </div>
+        <p class="small">* الدفع عبر PayPal → رح نحولك على Gumroad.</p>
+      </div>
+    </section>
+
+    <section class="plans">
+      <div class="plan-card">
+        <div class="plan-title">الباكج الأساسي</div>
+        <div class="small">دليل تعلم أساسيات الأمن السيبراني (5 مستويات) + خريطة تعلم (Roadmap)</div>
+        <div class="price">40 USDT</div>
+        <ul class="features">
+          <li>PDF: أساسيات / مفاهيم / مصادر</li>
+          <li>Roadmap خطوة بخطوة</li>
+          <li>أوامر كالي الأساسية</li>
+          <li>استخدام قانوني وأخلاقي</li>
+        </ul>
+        <a href="https://t.me/YOUR_TELEGRAM_USERNAME" class="btn-telegram">اطلب على تيليجرام</a>
+      </div>
+      <div class="plan-card highlight">
+        <div class="badge-top">الأكثر طلباً</div>
+        <div class="plan-title">الباكج الشامل (Pro)</div>
+        <div class="small">كل الكتيبات + أدوات + سكربتات + برامج</div>
+        <div class="price">💰 100 USDT</div>
+        <ul class="features">
+          <li>كل محتوى الباكج الأساسي</li>
+          <li>أدوات Red Team (داخل/خارج كالي)</li>
+          <li>سكربتات عملية + تقارير جاهزة</li>
+          <li>ملفات كبيرة بتنرفع على القناة الخاصة</li>
+        </ul>
+        <a href="https://t.me/YOUR_TELEGRAM_USERNAME" class="btn-telegram">اطلب على تيليجرام</a>
+      </div>
+      <div class="plan-card">
+        <div class="plan-title">الدفع اليدوي</div>
+        <div class="small">للدول اللي عندها قيود</div>
+        <div class="price">حسب الطلب</div>
+        <ul class="features">
+          <li>تحويل عبر وسيط (Cozma Method)</li>
+          <li>تأكيد يدوي على التلغرام</li>
+          <li>إضافة للقناة الخاصة بعد الدفع</li>
+        </ul>
+        <a href="https://t.me/YOUR_TELEGRAM_USERNAME" class="btn-telegram">تواصل الآن</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2025 Cozma Store – منتجات الأمن السيبراني الرقمية.</div>
+    <div class="cta-share">لا تنسوا الاشتراك بالقناة ومشاركة الصفحة على منصات التواصل الاجتماعي 🔁</div>
+  </footer>
+
+  <script>
+    function goTelegram() {
+      // غيّر اليوزر تبعك هون
+      window.location.href = "https://t.me/YOUR_TELEGRAM_USERNAME";
+    }
+  </script>
+</body>
+</html>
