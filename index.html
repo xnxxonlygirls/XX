@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ONLYGIRLS | نادي خاص</title>
+
+  <style>
+    :root {
+      --bg: #08080d;
+      --card-bg: #111116;
+      --accent: #ff3366;
+      --accent-dark: #c41e5c;
+      --gradient: linear-gradient(135deg, #ff3366, #aa33ff, #3366ff);
+      --text: #f0f0ff;
+      --text-muted: #b0b0d0;
+    }
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8,8,13,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1f1f2f;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-img { height: 48px; }
+
+    nav { display: flex; gap: 28px; }
+    nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.25s; }
+    nav a:hover { color: white; }
+
+    .vip-btn {
+      background: var(--gradient);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .vip-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,51,102,0.45); }
+
+    .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
+
+    .hero {
+      position: relative;
+      height: 75vh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: url('https://i.ibb.co/Vy1WvZY/sophie-rain.jpg') center/cover no-repeat fixed;
+    }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(8,8,13,0.35), rgba(8,8,13,0.88) 60%); }
+    .hero-content { position: relative; z-index: 2; max-width: 620px; padding: 0 20px; }
+    .hero h1 {
+      font-size: clamp(2.8rem, 8vw, 5.2rem);
+      margin-bottom: 0.7rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p { font-size: 1.3rem; color: var(--text-muted); margin-bottom: 2.2rem; }
+
+    .cta-main {
+      padding: 16px 44px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      background: var(--gradient);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.35s;
+    }
+    .cta-main:hover { transform: scale(1.07); box-shadow: 0 14px 45px rgba(255,51,102,0.55); }
+
+    .creators { padding: 70px 20px; max-width: 1440px; margin: 0 auto; }
+    .creators h2 {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 60px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    @media (min-width: 640px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1280px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.65);
+      transition: all 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border: 1px solid #1f1f2f;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-16px) scale(1.035);
+      box-shadow: 0 35px 80px rgba(255,51,102,0.4);
+      border-color: #ff3366;
+    }
+
+    .profile-img {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      margin: 40px auto 20px;
+      object-fit: cover;
+      border: 6px solid var(--accent);
+      box-shadow: 0 10px 40px rgba(255,51,102,0.45);
+      transition: all 0.55s ease;
+    }
+
+    .card:hover .profile-img {
+      transform: scale(1.07);
+      border-color: white;
+    }
+
+    .extra-images {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      padding: 0 24px 30px;
+    }
+
+ .extra-images img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 2px solid #222244;
+  filter: blur(2.5px) brightness(0.9);   /* ← غيرنا هنا */
+  loading: lazy;
+}
+    .card-content { padding: 0 20px 30px; text-align: center; }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin: 8px 0 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hot-badge { font-size: 1.1rem; }
+
+    .new-badge {
+      background: #00cc66;
+      color: white;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .handle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .subscribers {
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    .unlock-btn {
+      margin: 0 20px 32px;
+      width: calc(100% - 40px);
+      padding: 16px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: var(--gradient);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.35s;
+    }
+    .unlock-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(255,51,102,0.6);
+    }
+
+    .pricing-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.96);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .pricing-box {
+      background: #0c0c14;
+      border-radius: 28px;
+      padding: 36px;
+      max-width: 1100px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      border: 1px solid #222244;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .price-card {
+      background: #161620;
+      padding: 28px 20px;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid #222244;
+      transition: all 0.3s;
+    }
+
+    .price-card:hover { border-color: var(--accent); transform: translateY(-6px); }
+
+    .price-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
+
+    .price { font-size: 2.2rem; color: var(--accent); font-weight: 700; margin: 12px 0 16px; }
+
+    .price-card button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 50px;
+      background: var(--gradient);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .price-card button:hover { transform: scale(1.04); }
+
+    .close-btn { float: left; font-size: 42px; cursor: pointer; color: #888; }
+
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      color: #555;
+      font-size: 0.95rem;
+      border-top: 1px solid #181824;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        background: #0c0c14;
+        flex-direction: column;
+        padding: 24px;
+        border-bottom: 1px solid #222;
+      }
+      nav.show { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="https://i.ibb.co/G4nZTKN2/onlygirls-logo.png" class="logo-img" alt="ONLYGIRLS">
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <nav id="navMenu">
+    <a href="#">الرئيسية</a>
+    <a href="#">الأعضاء</a>
+    <a href="#">الاشتراكات</a>
+  </nav>
+  <button class="vip-btn">VIP</button>
+</header>
+
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>ONLYGIRLS</h1>
+    <p>نادي النخبة الحصري • محتوى خاص • وصول محدود</p>
+    <button class="cta-main">فتح النادي الآن</button>
+  </div>
+</section>
+
+<section class="creators">
+  <h2>أجمل المنتسبين</h2>
+  <div class="grid" id="creatorGrid"></div>
+</section>
+
+<div class="pricing-modal" id="pricingModal">
+  <div class="pricing-box">
+    <span class="close-btn" onclick="closePricing()">×</span>
+    <h2 style="text-align:center; margin-bottom:40px;">اشترك الآن لنحقق رغباتك و نصنع سعادتك </h2>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>اشتراك أساسي</h3>
+        <div class="price">$15</div>
+        <p>الوصول الأساسي للملف الشخصي</p>
+        <button>اشترك الآن</button>
+      </div>
+
+      <div class="price-card">
+        <h3>باقة الصور</h3>
+        <div class="price">$10</div>
+        <p>فتح جميع الصور الحصرية</p>
+        <button>اشترك الآن</button>
+      </div>
+
+      <div class="price-card">
+        <h3>باقة الفيديوهات</h3>
+        <div class="price">$20</div>
+        <p>الوصول الكامل للفيديوهات</p>
+        <button>اشترك الآن</button>
+      </div>
+
+      <div class="price-card">
+        <h3>وصول VIP + مراسلة خاصة</h3>
+        <div class="price">$20</div>
+        <p>VIP كامل + دردشة خاصة</p>
+        <button>ترقية VIP</button>
+      </div>
+
+      <div class="price-card">
+        <h3>تنسيق مقابلة خاصة</h3>
+        <div class="price">$100+</div>
+        <p>طلب ترتيب مقابلة خاصة</p>
+        <button>طلب المقابلة</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© ONLYGIRLS 2026 • جميع الحقوق محفوظة</footer>
+
+<script>
+const creators = [
+  {
+    name: "Nour m kh",
+    handle: "@nourmk",
+    subscribers: "12.4K",
+    main: "https://i.ibb.co/BXHQp5v/5ab1b827-59fd-4a82-abc1-2b7b395115be.jpg",
+    extras: [
+      "https://i.ibb.co/67h1TmMs/177095899771-54f3773b-0f8d-1aca-c1f4-3509fdd1ca18.png",
+      "https://i.ibb.co/9mJZNttk/2aa95c80-7519-4b7d-8d1b-3c35b31194e1.jpg",
+      "https://i.ibb.co/gLmc0q7V/221e37d8-7ae5-47d0-9e6e-ef03537d5dce.jpg"
+    ],
+    isNew: true   // badge جديد
+  },
+
+   {
+    name: "sara esaa",
+    handle: "@saraessa73",
+    subscribers: "8.7K",
+    main: "https://i.ibb.co/qMxtpsv8/4tzpc962fbyx.jpg",
+    extras: ["https://i.ibb.co/hJ8T2dBC/qh3llo7p7t9e.jpg", "https://i.ibb.co/BHg7jbSr/61edb36s6vrw.jpg", "https://i.ibb.co/Cpkw1r63/xkviwmdogaog.jpg"]
+  ,
+    isNew: true },
+
+   {
+    name: "السلطانة توتا",
+    handle: "@talasy7828",
+    subscribers: "9.2K",
+    main: "https://i.ibb.co/CpQ2DFqV/cb2f15f1-4b30-474c-8097-1a8dc1a0b745.jpg",
+    extras: ["https://i.ibb.co/mVJsbsvx/1771622168378-95601cea-0e83-a9e9-c586-016f23b9a2d3.png", "https://i.ibb.co/pjzyTc1Z/177162318290-a3f68036-ac7e-c129-41fa-a4698cf37a45888.png","https://i.ibb.co/yFsvNMM5/1771622396337-9f6602ce-c128-b357-54e5-0f921b33868f.png"]
+  },
+
+   {
+    name: " مريم الحسين",
+    handle: "@marim93822224",
+    subscribers: "19.4K",
+    main: "https://i.ibb.co/F4rtLmTV/Ugmc-M544.jpg",
+    extras: ["https://i.ibb.co/LhrwVbKH/AI-Image-Changer-1.png", "https://i.ibb.co/7dCRMcYC/2c0d5cd2-33b4-4b63-b9da-6fc33e4ae573.jpg", "https://i.ibb.co/tT1yy1BQ/9fbe2f48-423b-4162-be68-3837b8665f9b.jpg"]
+ ,
+    isNew: true },
+    
+     {
+    name: " maram alfahed",
+    handle: "@maramalf66",
+    subscribers: "3.1K",
+    main: "https://i.ibb.co/sJ3C7YXS/30698035-1000007257-296x1000.webp",
+    extras: ["https://i.ibb.co/SL551rS/30698041-1000007249-880x660.jpg", "https://i.ibb.co/XNygBxd/30698042-1000007248-296x1000.webp", "https://i.ibb.co/spRGCFcz/30698040-1000007245-880x660.jpg"]
+  },
+  
+  // أضف باقي العضوات بنفس الطريقة
+];
+
+
+
+const grid = document.getElementById("creatorGrid");
+
+creators.forEach(c => {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  let extrasHTML = '';
+  if (c.extras && c.extras.length > 0) {
+    extrasHTML = `<div class="extra-images">
+      ${c.extras.map(src => `<img src="${src}" alt="" loading="lazy">`).join('')}
+    </div>`;
+  }
+
+  let badges = '';
+  if (c.isNew) {
+    badges += '<span class="new-badge">New</span>';
+  }
+
+  card.innerHTML = `
+    <img src="${c.main}" class="profile-img" alt="${c.name}" loading="lazy">
+    ${extrasHTML}
+    <div class="card-content">
+      <h3><span class="hot-badge">🔥</span> ${c.name}${badges}</h3>
+      <div class="handle">${c.handle}</div>
+      <div class="subscribers">${c.subscribers} مشترك</div>
+      <button class="unlock-btn">اشترك الآن </button>
+    </div>
+  `;
+
+  grid.appendChild(card);
+});
+
+// Events
+document.addEventListener("click", e => {
+  if (e.target.classList.contains("unlock-btn") || e.target.classList.contains("cta-main")) {
+    document.getElementById("pricingModal").style.display = "flex";
+  }
+});
+
+function closePricing() {
+  document.getElementById("pricingModal").style.display = "none";
+}
+
+function toggleMenu() {
+  document.getElementById("navMenu").classList.toggle("show");
+}
+</script>
+</body>
+</html>
