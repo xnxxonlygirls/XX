@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONLYGIRLS | VIP Club</title>
+
+<style>
+
+/* ===== Base ===== */
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:#0d0d12;
+color:white;
+}
+
+*{box-sizing:border-box}
+
+button{cursor:pointer}
+
+/* ===== Header ===== */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+background:#111;
+border-bottom:1px solid #222;
+}
+
+.logo{
+height:50px;
+}
+
+.header-buttons button{
+margin-left:10px;
+padding:10px 18px;
+border:none;
+border-radius:20px;
+background:linear-gradient(90deg,#ff0040,#9900ff);
+color:white;
+font-weight:bold;
+}
+
+/* ===== Hero ===== */
+
+.hero{
+text-align:center;
+padding:60px 20px;
+}
+
+.hero h1{
+font-size:34px;
+margin-bottom:10px;
+}
+
+.hero p{
+color:#aaa;
+}
+
+/* ===== Plans ===== */
+
+.plans{
+padding:25px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+.plan{
+background:#1a1a22;
+padding:20px;
+border-radius:15px;
+text-align:center;
+border:1px solid #222;
+transition:.3s;
+}
+
+.plan:hover{
+transform:translateY(-5px);
+box-shadow:0 0 20px rgba(255,0,100,.3);
+}
+
+.price{
+color:#ff0040;
+font-size:24px;
+margin:10px;
+}
+
+.plan button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:25px;
+background:linear-gradient(90deg,#ff0040,#9900ff);
+color:white;
+font-weight:bold;
+}
+
+/* ===== Modal ===== */
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.95);
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.modal-box{
+background:#111;
+padding:25px;
+border-radius:15px;
+width:90%;
+max-width:420px;
+animation:fade .3s;
+}
+
+@keyframes fade{
+from{transform:scale(.9);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+/* ===== Inputs ===== */
+
+input{
+width:100%;
+padding:12px;
+margin-top:8px;
+background:#1a1a22;
+border:1px solid #333;
+color:white;
+border-radius:10px;
+}
+
+input.error{
+border:1px solid red;
+box-shadow:0 0 5px red;
+}
+
+/* ===== Methods ===== */
+
+.methods{
+display:flex;
+gap:10px;
+margin:10px 0;
+}
+
+.method{
+flex:1;
+padding:10px;
+background:#1a1a22;
+border:none;
+color:white;
+border-radius:10px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:5px;
+font-weight:bold;
+transition:.25s;
+}
+
+.method:hover{
+transform:scale(1.05);
+}
+
+.method-icon{
+width:26px;
+height:26px;
+object-fit:contain;
+}
+
+.method.active{
+background:linear-gradient(90deg,#ff0040,#9900ff);
+box-shadow:0 0 15px rgba(255,0,120,.5);
+}
+
+/* ===== QR Animation ===== */
+
+.qr{
+text-align:center;
+margin:15px;
+}
+
+.qr img{
+width:180px;
+transition:.35s;
+border-radius:10px;
+}
+
+.qr img.fade{
+opacity:.2;
+transform:scale(.9);
+}
+
+/* ===== Wallet ===== */
+
+.wallet{
+display:flex;
+gap:5px;
+}
+
+.copy-btn{
+background:linear-gradient(90deg,#ff0040,#9900ff);
+border:none;
+color:white;
+padding:10px 15px;
+border-radius:10px;
+font-weight:bold;
+transition:.3s;
+}
+
+.copy-btn.copied{
+background:#00c853;
+}
+
+/* ===== Network Label ===== */
+
+.network{
+font-size:13px;
+color:#00e5ff;
+margin-top:5px;
+}
+
+/* ===== Pay Button ===== */
+
+.pay-btn{
+width:100%;
+margin-top:15px;
+padding:14px;
+border:none;
+border-radius:15px;
+background:linear-gradient(90deg,#ff0040,#9900ff);
+color:white;
+font-size:16px;
+font-weight:bold;
+position:relative;
+}
+
+.pay-btn.loading{
+background:#444;
+}
+
+.pay-btn.success{
+background:#00c853;
+}
+
+.spinner{
+display:none;
+width:18px;
+height:18px;
+border:3px solid rgba(255,255,255,.3);
+border-top:3px solid white;
+border-radius:50%;
+animation:spin 1s linear infinite;
+position:absolute;
+left:15px;
+top:50%;
+transform:translateY(-50%);
+}
+
+.pay-btn.loading .spinner{
+display:block;
+}
+
+@keyframes spin{
+to{transform:translateY(-50%) rotate(360deg)}
+}
+
+/* ===== Success ===== */
+
+.success{
+text-align:center;
+}
+
+.success button{
+margin-top:15px;
+padding:12px 25px;
+background:linear-gradient(90deg,#ff0040,#9900ff);
+border:none;
+color:white;
+border-radius:20px;
+}
+
+.helper{
+font-size:13px;
+color:#aaa;
+margin-top:3px;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+
+<img src="https://i.ibb.co/G4nZTKN2/onlygirls-logo.png" class="logo">
+
+<div class="header-buttons">
+<button onclick="openLogin()">تسجيل الدخول</button>
+<button onclick="openRegister()">إنشاء حساب</button>
+</div>
+
+</header>
+
+<section class="hero">
+<h1>ONLYGIRLS VIP</h1>
+<p>اختر الباقة و ادفع للوصول الفوري</p>
+</section>
+
+<section class="plans">
+
+<div class="plan">
+<h3>اشتراك أساسي</h3>
+<div class="price">$15</div>
+<button onclick="openPayment()">اشترك</button>
+</div>
+
+<div class="plan">
+<h3>باقة الصور</h3>
+<div class="price">$10</div>
+<button onclick="openPayment()">شراء</button>
+</div>
+
+<div class="plan">
+<h3>باقة الفيديوهات</h3>
+<div class="price">$20</div>
+<button onclick="openPayment()">شراء</button>
+</div>
+
+<div class="plan">
+<h3>VIP + مراسلة</h3>
+<div class="price">$20</div>
+<button onclick="openPayment()">شراء</button>
+</div>
+
+<div class="plan">
+<h3>تنسيق مقابلة</h3>
+<div class="price">$100+</div>
+<button onclick="openPayment()">طلب</button>
+</div>
+
+</section>
+
+<!-- PAYMENT -->
+
+<div class="modal" id="paymentModal">
+<div class="modal-box">
+
+<h2>الدفع</h2>
+
+<div class="methods">
+
+<button class="method active"
+data-wallet="TBESf1xVh8pDhur4Z9fMCKkFodacxB2cFJ"
+data-network="USDT TRC20"
+data-qr="https://i.ibb.co/0yx76PBZ/photo-2026-01-30-14-57-10.jpg"
+onclick="selectMethod(this)">
+
+<img src="https://i.ibb.co/0pwyw5jW/tether-usdt-logo.png" class="method-icon">
+Crypto
+
+</button>
+
+
+<button class="method"
+data-wallet="9ee376588a883d01be5d2cd9c52d042f"
+data-network="ShamCash ID"
+data-qr="https://i.ibb.co/671NMDmC/photo-2026-01-31-07-59-45.png"
+onclick="selectMethod(this)">
+
+<img src="https://i.ibb.co/rKkySfwc/image.png" class="method-icon">
+ShamCash
+
+</button>
+
+</div>
+
+
+<div class="qr">
+<img id="qrImage" src="https://i.ibb.co/0yx76PBZ/photo-2026-01-30-14-57-10.jpg">
+</div>
+
+<label>عنوان الدفع</label>
+
+<div class="wallet">
+<input id="wallet" value="TBESf1xVh8pDhur4Z9fMCKkFodacxB2cFJ" readonly>
+<button class="copy-btn" onclick="copyWallet(this)">نسخ</button>
+</div>
+
+<div class="network" id="networkLabel">USDT TRC20</div>
+
+<label>المبلغ المرسل</label>
+<input id="amount">
+
+<label>TXID / رقم العملية</label>
+<input id="txid">
+
+<label>صورة الإشعار</label>
+<input type="file" id="proof">
+
+<button class="pay-btn" onclick="confirmPayment(this)">
+<span class="pay-text">تم الدفع</span>
+<span class="spinner"></span>
+</button>
+
+</div>
+</div>
+
+<!-- SUCCESS -->
+
+<div class="modal" id="successModal">
+<div class="modal-box success">
+
+<h2>تم إرسال الطلب ✅</h2>
+<p>سيتم تأكيد الدفع تلقائياً خلال دقائق</p>
+
+<button onclick="location.reload()">العودة للرئيسية</button>
+
+</div>
+</div>
+
+<script>
+
+function openLogin(){
+alert("سيتم إضافة نظام تسجيل دخول كامل لاحقاً");
+}
+
+function openRegister(){
+alert("سيتم إضافة نظام تسجيل كامل لاحقاً");
+}
+
+function openPayment(){
+paymentModal.style.display="flex";
+}
+
+function selectMethod(btn){
+
+document.querySelectorAll(".method")
+.forEach(b=>b.classList.remove("active"));
+
+btn.classList.add("active");
+
+const walletValue = btn.dataset.wallet;
+const networkValue = btn.dataset.network;
+const qrValue = btn.dataset.qr;
+
+const qr = document.getElementById("qrImage");
+
+qr.classList.add("fade");
+
+setTimeout(()=>{
+
+qr.src = qrValue;
+wallet.value = walletValue;
+networkLabel.innerText = networkValue;
+
+qr.classList.remove("fade");
+
+},200);
+
+}
+
+function copyWallet(btn){
+
+navigator.clipboard.writeText(wallet.value);
+
+btn.innerText="✓ تم النسخ";
+btn.classList.add("copied");
+
+setTimeout(()=>{
+btn.innerText="نسخ";
+btn.classList.remove("copied");
+},2000);
+
+}
+
+function confirmPayment(btn){
+
+let valid=true;
+
+[amount,txid,proof].forEach(f=>{
+
+if(!f.value){
+f.classList.add("error");
+valid=false;
+}else{
+f.classList.remove("error");
+}
+
+});
+
+if(!valid)return;
+
+btn.classList.add("loading");
+btn.querySelector(".pay-text").innerText="جاري التحقق...";
+
+setTimeout(()=>{
+
+btn.classList.remove("loading");
+btn.classList.add("success");
+
+btn.querySelector(".pay-text").innerText="✓ تم";
+
+setTimeout(()=>{
+paymentModal.style.display="none";
+successModal.style.display="flex";
+},800);
+
+},2000);
+
+}
+
+</script>
+
+</body>
+</html>
