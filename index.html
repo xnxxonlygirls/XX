@@ -151,15 +151,16 @@
       padding: 0 24px 30px;
     }
 
- .extra-images img {
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 18px;
-  border: 2px solid #222244;
-  filter: blur(2.5px) brightness(0.9);   /* ← غيرنا هنا */
-  loading: lazy;
-}
+    .extra-images img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 2px solid #222244;
+      filter: blur(2.5px) brightness(0.9);
+      loading: lazy;
+    }
+
     .card-content { padding: 0 20px 30px; text-align: center; }
 
     .card h3 {
@@ -296,6 +297,9 @@
       }
       nav.show { display: flex; }
     }
+
+    /* Adsterra placeholders */
+    .adsterra { min-height: 90px; background: #111; margin: 20px 0; border-radius: 12px; display: flex; justify-content:center; align-items:center; color:#999; font-size:1rem; }
   </style>
 </head>
 <body>
@@ -311,6 +315,18 @@
   <button class="vip-btn">VIP</button>
 </header>
 
+<!-- Adsterra 1 -->
+<div id="ad1" class="adsterra"><script>
+  atOptions = {
+    'key' : '57eebcc084f3ce7adf1f67da1069d637',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/57eebcc084f3ce7adf1f67da1069d637/invoke.js"></script> </div>
+
 <section class="hero">
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -320,10 +336,34 @@
   </div>
 </section>
 
+<!-- Adsterra 2 -->
+<div id="ad2" class="adsterra"> <script>
+  atOptions = {
+    'key' : 'c3f04c4a533e62ab73f9f2fbef4d47df',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/c3f04c4a533e62ab73f9f2fbef4d47df/invoke.js"></script></div>
+
 <section class="creators">
   <h2>أجمل المنتسبين</h2>
   <div class="grid" id="creatorGrid"></div>
 </section>
+
+<!-- Adsterra 3 -->
+<div id="ad3" class="adsterra"> <script>
+  atOptions = {
+    'key' : '937e45d0b8706f95d60f24f93f3c1b8e',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/937e45d0b8706f95d60f24f93f3c1b8e/invoke.js"></script></div>
 
 <div class="pricing-modal" id="pricingModal">
   <div class="pricing-box">
@@ -371,9 +411,35 @@
   </div>
 </div>
 
-<footer>© ONLYGIRLS 2026 • جميع الحقوق محفوظة</footer>
+<!-- Adsterra 4 -->
+<div id="ad4" class="adsterra"> <script>
+  atOptions = {
+    'key' : 'a5f870585832e126c9a3286c7abba6fa',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/a5f870585832e126c9a3286c7abba6fa/invoke.js"></script></div>
+
+<footer>
+  <!-- Adsterra 5 -->
+  <div id="ad5" class="adsterra"> <script>
+  atOptions = {
+    'key' : 'ec793a1d91926bcf4b81a4959fded0f0',
+    'format' : 'iframe',
+    'height' : 600,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/ec793a1d91926bcf4b81a4959fded0f0/invoke.js"></script></div>
+  © ONLYGIRLS 2026 • جميع الحقوق محفوظة
+</footer>
 
 <script>
+// creators array and grid population (لم يطرأ أي تغيير)
 const creators = [
   {
     name: "Nour m kh",
@@ -385,26 +451,23 @@ const creators = [
       "https://i.ibb.co/9mJZNttk/2aa95c80-7519-4b7d-8d1b-3c35b31194e1.jpg",
       "https://i.ibb.co/JwjLWXNS/1771646272-trqzv3-1.png"
     ],
-    isNew: true   // badge جديد
+    isNew: true
   },
-
-   {
+  {
     name: "sara esaa",
     handle: "@saraessa73",
     subscribers: "8.7K",
     main: "https://i.ibb.co/qMxtpsv8/4tzpc962fbyx.jpg",
-    extras: ["https://i.ibb.co/hJ8T2dBC/qh3llo7p7t9e.jpg", "https://i.ibb.co/BHg7jbSr/61edb36s6vrw.jpg", "https://i.ibb.co/Cpkw1r63/xkviwmdogaog.jpg"]
-  ,
-    isNew: true },
-
-   {
+    extras: ["https://i.ibb.co/hJ8T2dBC/qh3llo7p7t9e.jpg", "https://i.ibb.co/BHg7jbSr/61edb36s6vrw.jpg", "https://i.ibb.co/Cpkw1r63/xkviwmdogaog.jpg"],
+    isNew: true
+  },
+  {
     name: "السلطانة توتا",
     handle: "@talasy7828",
     subscribers: "9.2K",
     main: "https://i.ibb.co/CpQ2DFqV/cb2f15f1-4b30-474c-8097-1a8dc1a0b745.jpg",
     extras: ["https://i.ibb.co/mVJsbsvx/1771622168378-95601cea-0e83-a9e9-c586-016f23b9a2d3.png", "https://i.ibb.co/pjzyTc1Z/177162318290-a3f68036-ac7e-c129-41fa-a4698cf37a45888.png","https://i.ibb.co/yFsvNMM5/1771622396337-9f6602ce-c128-b357-54e5-0f921b33868f.png"]
   },
-
    {
     name: " مريم الحسين",
     handle: "@marim93822224",
@@ -425,8 +488,6 @@ const creators = [
   // أضف باقي العضوات بنفس الطريقة
 ];
 
-
-
 const grid = document.getElementById("creatorGrid");
 
 creators.forEach(c => {
@@ -441,9 +502,7 @@ creators.forEach(c => {
   }
 
   let badges = '';
-  if (c.isNew) {
-    badges += '<span class="new-badge">New</span>';
-  }
+  if (c.isNew) { badges += '<span class="new-badge">New</span>'; }
 
   card.innerHTML = `
     <img src="${c.main}" class="profile-img" alt="${c.name}" loading="lazy">
@@ -459,20 +518,14 @@ creators.forEach(c => {
   grid.appendChild(card);
 });
 
-// Events
 document.addEventListener("click", e => {
   if (e.target.classList.contains("unlock-btn") || e.target.classList.contains("cta-main")) {
     document.getElementById("pricingModal").style.display = "flex";
   }
 });
 
-function closePricing() {
-  document.getElementById("pricingModal").style.display = "none";
-}
-
-function toggleMenu() {
-  document.getElementById("navMenu").classList.toggle("show");
-}
+function closePricing() { document.getElementById("pricingModal").style.display = "none"; }
+function toggleMenu() { document.getElementById("navMenu").classList.toggle("show"); }
 </script>
 </body>
 </html>
